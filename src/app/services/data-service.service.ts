@@ -7,20 +7,54 @@ import { GlobalDataSummary } from '../models/global-data';
   providedIn: 'root'
 })
 export class DataServiceService {
-  gettingDate(): string {
-    var tempDate = new Date().getDate() - 1;
+  getingDateString(): string {
+    const today = new Date();
+    const yesterday = new Date(today);
 
-    var exactDate: string;
+    yesterday.setDate(yesterday.getDate() - 1)
 
-    if (tempDate <= 9) {
-      exactDate = ('0' + tempDate).toString();
+    today.toDateString();
+    yesterday.toDateString();
+    let tempYesterdatDate = yesterday.getDate();
+    let tempYesterdayMonth = yesterday.getMonth()+1;
+    let tempYesterdayYear = yesterday.getFullYear();
+    let exactYesterdayDate: string;
+    let exactYesterdayMonth: string;
+    let exactYesterdayYear: string;
+    if (tempYesterdatDate <= 9) {
+      exactYesterdayDate = ('0' + tempYesterdatDate).toString();
     } else {
-      exactDate = tempDate.toString();
+      exactYesterdayDate = tempYesterdatDate.toString();
     }
-    return exactDate;
+    if (tempYesterdayMonth <= 9) {
+      exactYesterdayMonth = ('0' + tempYesterdayMonth).toString();
+    } else {
+      exactYesterdayMonth = tempYesterdayMonth.toString();
+    }
+    if (tempYesterdayYear <= 9) {
+      exactYesterdayYear = ('0' + tempYesterdayYear).toString();
+    } else {
+      exactYesterdayYear = tempYesterdayYear.toString();
+    }
+    let fullYesterdayDate=exactYesterdayMonth + "-" + exactYesterdayDate + "-" + exactYesterdayYear;
+    console.log(fullYesterdayDate)
+    return fullYesterdayDate;
   }
+  // gettingDate(): string {
+  //   var tempDate = new Date().getDate() - 1;
+
+  //   var exactDate: string;
+
+  //   if (tempDate <= 9) {
+  //     exactDate = ('0' + tempDate).toString();
+  //   } else {
+  //     exactDate = tempDate.toString();
+  //   }
+  //   return exactDate;
+  // }
   private dateWiseDataUrl = `https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv`
-  private globalDataUrl = "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_daily_reports/10-"+this.gettingDate()+"-2020.csv";
+  private globalDataUrl = "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_daily_reports/"+this.getingDateString()+".csv";
+ 
   constructor(private http: HttpClient) { }
   getDateWiseData() {
     return this.http.get(this.dateWiseDataUrl, { responseType: 'text' })
