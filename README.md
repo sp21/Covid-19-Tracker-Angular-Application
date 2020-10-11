@@ -29,7 +29,7 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 ## Deployed Site
 
 
-<a href="https://sp21.github.io/Covid19TrackerByShreyas/">Click here</a>
+<a href="https://sp21.github.io/WorldCovid19CasesTracker/">Click here</a>
 
 
 <img src="AngularCovidTracker.jpg"/>
